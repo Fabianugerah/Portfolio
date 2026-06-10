@@ -74,7 +74,7 @@ export default function CustomCursor() {
       
       {/* Single Inverting Circle */}
       <div
-        className={`fixed top-0 left-0 bg-white rounded-full pointer-events-none z-[10000] mix-blend-difference transition-all duration-300 ease-out flex items-center justify-center ${
+        className={`fixed top-0 left-0 bg-white rounded-full pointer-events-none z-10000 mix-blend-difference transition-all duration-300 ease-out flex items-center justify-center ${
           isHovering ? "w-14 h-14" : "w-8 h-8"
         }`}
         style={{

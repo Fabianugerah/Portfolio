@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -11,12 +11,91 @@ const navLinks = [
   { href: "/project", label: "Project", icon: "bi-images" },
   { href: "/service", label: "Service", icon: "bi-briefcase" },
   { href: "/certifications", label: "Certifications", icon: "bi-award" },
-  
+  { href: "/contact", label: "Contact", icon: "bi-chat-dots" },
 ];
 
 export default function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  // State untuk waktu dan tanggal
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+
+  // State dan Ref untuk efek Always-On Proximity Glow dengan Delay
+  const [displayPos, setDisplayPos] = useState({ x: 0, y: 0 });
+  
+  const cardRef = useRef<HTMLDivElement>(null);
+  const targetPos = useRef({ x: 0, y: 0 });
+  const currentPos = useRef({ x: 0, y: 0 });
+
+  // 1. Effect untuk mengupdate Jam & Tanggal (WIB)
+  useEffect(() => {
+    const updateDateTime = () => {
+      const sekarang = new Date();
+      
+      // Format Jam
+      const wkt = sekarang.toLocaleTimeString("id-ID", {
+        timeZone: "Asia/Jakarta",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+      });
+      setTime(`${wkt.replace(/\./g, ':')}`);
+
+      
+      const tgl = sekarang.toLocaleDateString("en-GB", {
+        timeZone: "Asia/Jakarta",
+        weekday: "long",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      setDate(tgl);
+    };
+
+    updateDateTime();
+    const interval = setInterval(updateDateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // 2. Effect untuk tracking kursor Global & Animasi Lerp Delay
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!cardRef.current) return;
+      
+      const rect = cardRef.current.getBoundingClientRect();
+      // Menghitung posisi kursor relatif terhadap kotak jam dari mana saja
+      targetPos.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      };
+    };
+
+    // Daftarkan pergerakan mouse secara global di window
+    window.addEventListener("mousemove", handleGlobalMouseMove);
+
+    let animationFrameId: number;
+    const animate = () => {
+      // Mengatur kelambatan bayangan (semakin kecil nilainya, semakin lambat/delay)
+      const speedFactor = 0.05; 
+      
+      currentPos.current.x += (targetPos.current.x - currentPos.current.x) * speedFactor;
+      currentPos.current.y += (targetPos.current.y - currentPos.current.y) * speedFactor;
+
+      setDisplayPos({ x: currentPos.current.x, y: currentPos.current.y });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener("mousemove", handleGlobalMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   const handleNavClick = () => {
     setMenuOpen(false);
@@ -106,14 +185,28 @@ export default function Sidebar() {
           </ul>
         </nav>
 
-        <div className="p-6 text-center text-white/40 text-xs">
-          &copy; {new Date().getFullYear()} {personalInfo.name}.
-        </div>
+        {/* Widget Waktu Indonesia Interaktif (Always-On Proximity Glow) */}
+        {time && date && (
+          <div
+            ref={cardRef}
+            style={{
+              background: `radial-gradient(circle 120px at ${displayPos.x}px ${displayPos.y}px, rgba(255, 255, 255, 0.12), transparent 80%), rgba(255, 255, 255, 0.03)`,
+            }}
+            className="mx-4 mb-4 p-4 border border-white/10 rounded-2xl flex flex-col gap-1 cursor-default overflow-hidden relative"
+          >
+            <span className="text-white font-semibold text-base tracking-wider font-mono z-10 relative">
+              {time}
+            </span>
+            <span className="text-white/50 text-xs tracking-wide z-10 relative">
+              {date}
+            </span>
+          </div>
+        )}
       </aside>
 
       {/* Overlay for mobile */}
       {menuOpen && (
-        <div 
+        <div
           className="md:hidden fixed inset-0 bg-black/60 z-40 backdrop-blur-sm"
           onClick={() => setMenuOpen(false)}
         />
