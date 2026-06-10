@@ -3,18 +3,12 @@ import SectionHeader from "@/components/ui/SectionHeader";
 
 export default function CertificationsSection() {
   return (
-    <section className="bg-black text-white py-20 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4">
-        <SectionHeader title="CERTIFICATIONS" />
-        
-        <div className="mt-10 mb-10 text-center">
-          <p className="text-[#0cc0df] font-medium text-lg">Penghargaan & Sertifikat</p>
-          <h3 className="text-3xl font-bold text-white/80 leading-snug mt-2">
-            Bukti Pencapaian dan<br />Keahlian Profesional Saya
-          </h3>
-        </div>
+    <section className="bg-neutral-900/50 backdrop-blur-sm text-white py-20 min-h-screen">
+      <div className="max-w-3xl mx-auto">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <SectionHeader title="CERTIFICATIONS" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
           {certifications.map((cert) => (
             <div
               key={cert.id}

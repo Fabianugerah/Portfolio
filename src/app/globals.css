@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+@theme {
+  /* Mendaftarkan animasi kustom ke dalam engine Tailwind v4 */
+  --animate-marquee: marquee 20s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 20s linear infinite;
+
+  /* Mendefinisikan Keyframes di dalam tema */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes marquee-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+}
+
 :root {
   --color-accent: #0cc0df;
   --font-poppins: "Poppins", sans-serif;
@@ -16,23 +40,4 @@ html {
 body {
   background-color: #000;
   color: #fff;
-}
-
-/* Marquee animation for tech logos */
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  display: flex;
-  animation: marquee 20s linear infinite;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
 }

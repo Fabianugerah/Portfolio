@@ -18,23 +18,18 @@ export default function Sidebar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // State untuk waktu dan tanggal
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
 
-  // State dan Ref untuk efek Always-On Proximity Glow dengan Delay
   const [displayPos, setDisplayPos] = useState({ x: 0, y: 0 });
-  
+
   const cardRef = useRef<HTMLDivElement>(null);
   const targetPos = useRef({ x: 0, y: 0 });
   const currentPos = useRef({ x: 0, y: 0 });
 
-  // 1. Effect untuk mengupdate Jam & Tanggal (WIB)
   useEffect(() => {
     const updateDateTime = () => {
       const sekarang = new Date();
-      
-      // Format Jam
       const wkt = sekarang.toLocaleTimeString("id-ID", {
         timeZone: "Asia/Jakarta",
         hour: "2-digit",
@@ -44,7 +39,7 @@ export default function Sidebar() {
       });
       setTime(`${wkt.replace(/\./g, ':')}`);
 
-      
+
       const tgl = sekarang.toLocaleDateString("en-GB", {
         timeZone: "Asia/Jakarta",
         weekday: "long",
@@ -60,27 +55,23 @@ export default function Sidebar() {
     return () => clearInterval(interval);
   }, []);
 
-  // 2. Effect untuk tracking kursor Global & Animasi Lerp Delay
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
       if (!cardRef.current) return;
-      
+
       const rect = cardRef.current.getBoundingClientRect();
-      // Menghitung posisi kursor relatif terhadap kotak jam dari mana saja
       targetPos.current = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
       };
     };
 
-    // Daftarkan pergerakan mouse secara global di window
     window.addEventListener("mousemove", handleGlobalMouseMove);
 
     let animationFrameId: number;
     const animate = () => {
-      // Mengatur kelambatan bayangan (semakin kecil nilainya, semakin lambat/delay)
-      const speedFactor = 0.05; 
-      
+      const speedFactor = 0.05;
+
       currentPos.current.x += (targetPos.current.x - currentPos.current.x) * speedFactor;
       currentPos.current.y += (targetPos.current.y - currentPos.current.y) * speedFactor;
 
@@ -113,9 +104,8 @@ export default function Sidebar() {
             height={30}
             className="rounded"
           />
-          <span className="font-bold text-white text-lg">
-            {personalInfo.brandName?.slice(0, -3) || "GreXX"}
-            <span className="text-neutral-300">Dev</span>.
+          <span className="font-bold text-white text-md">
+            Fabianugerah
           </span>
         </Link>
         <button
@@ -129,9 +119,8 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-screen w-64 bg-black/95 md:bg-[#0a0a0a] backdrop-blur-md border-r border-white/10 z-50 flex flex-col transition-transform duration-300 ${
-          menuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
-        }`}
+        className={`fixed top-0 left-0 h-screen w-64 bg-black/95 md:bg-[#0a0a0a] backdrop-blur-md border-r border-white/10 z-50 flex flex-col transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+          }`}
       >
         <div className="p-6 flex items-center justify-between md:justify-center mt-2">
           <Link href="/" onClick={handleNavClick} className="flex items-center gap-2 no-underline">
@@ -142,9 +131,8 @@ export default function Sidebar() {
               height={40}
               className="rounded"
             />
-            <span className="font-bold text-white text-xl">
-              {personalInfo.brandName?.slice(0, -3) || "GreXX"}
-              <span className="text-neutral-300">Dev</span>.
+            <span className="font-bold text-white text-md">
+              Fabianugerah
             </span>
           </Link>
           <button
@@ -165,11 +153,10 @@ export default function Sidebar() {
                   <Link
                     href={link.href}
                     onClick={handleNavClick}
-                    className={`group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 no-underline ${
-                      isActive
+                    className={`group flex items-center justify-between px-4 py-3 rounded-2xl transition-all duration-300 no-underline ${isActive
                         ? "bg-[#1a1a1a] border border-white/10 text-white"
                         : "text-white/60 hover:text-white border border-transparent hover:bg-white/5"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center gap-4">
                       <i className={`bi ${link.icon} text-lg ${isActive ? "text-white" : "group-hover:text-white"} transition-colors`} />

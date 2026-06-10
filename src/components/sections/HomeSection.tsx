@@ -2,16 +2,35 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   personalInfo,
   socialLinks,
-  education,
-  techLogos,
   projectItems,
   certifications,
+  workExperience,
+  studies
 } from "@/data/portfolio";
 import SectionHeader from "@/components/ui/SectionHeader";
+
+// Tech stack for the marquee
+const techStackItems = [
+  { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg" },
+  { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" },
+  { name: "Express", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" },
+  { name: "Laravel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg" },
+  { name: "HTML5", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" },
+  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" },
+  { name: "Javascript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
+  { name: "Typescript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+  { name: "Github", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
+  { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" },
+  { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" },
+  { name: "Dart", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg" },
+  { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" },
+  { name: "Prisma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg" },
+  { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" },
+];
 
 export default function HomeSection() {
   const [visible, setVisible] = useState(false);
@@ -27,249 +46,212 @@ export default function HomeSection() {
   return (
     <>
       {/* ─────────────────────────── HERO ─────────────────────────── */}
-      <section className="min-h-screen flex items-center bg-neutral-900/50 backdrop-blur-sm px-4">
-        <div className="max-w-6xl mx-auto w-full">
-          <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
-            {/* Text */}
-            <div
-              className={`flex-1 transition-all duration-700 ${
-                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-3 leading-tight">
-                <span className="text-neutral-200 font-medium text-3xl block mb-1">
-                  Hii, I&apos;am
-                </span>
-                {personalInfo.name}
-              </h1>
+      <section className="min-h-screen flex items-center bg-neutral-900/50 backdrop-blur-sm px-4 pt-20 md:pt-0">
+        <div className="max-w-3xl mx-auto w-full py-20">
 
-              <div className="inline-block bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-4 py-2 mb-6">
-                <p className="text-white/80 font-medium text-lg m-0">
-                  {personalInfo.tagline}
+          {/* Name + Title */}
+          <div
+            className={`transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            <h1 className="text-5xl md:text-5xl font-black text-white tracking-tight leading-none mb-2">
+              {personalInfo.name.split(" ")[0]}
+              <br />
+              {personalInfo.name.split(" ").slice(1).join(" ")}
+            </h1>
+            <p className="text-white/50 text-xl font-light mb-8">
+              {personalInfo.tagline}
+            </p>
+          </div>
+
+          {/* Social Media Pills */}
+          <div
+            className={`flex flex-wrap gap-2 mb-10 transition-all duration-700 delay-150 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 border border-white/20 rounded-full px-4 py-2 text-white/70 hover:text-white hover:border-white/50 transition-all duration-200 text-sm no-underline backdrop-blur-sm hover:bg-white/5"
+              >
+                <i className={`bi ${social.icon} text-sm`} />
+                <span>{social.name}</span>
+              </a>
+            ))}
+          </div>
+
+          {/* Bio */}
+          <div
+            className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            <p className="text-white/60 text-base leading-relaxed max-w-xl mb-12">
+              {personalInfo.description}
+            </p>
+          </div>
+
+          {/* ─── Tech Stack Marquee ─── */}
+          <div
+            className={`mb-20 transition-all duration-700 delay-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            <p className="text-white/30 text-xs font-semibold tracking-widest uppercase mb-4">
+              Technologies
+            </p>
+            {/* Row 1 - Menggunakan Marquee Tanpa Jeda */}
+            <div className="overflow-hidden mb-3 w-full relative">
+              <div className="flex w-max animate-marquee">
+                <div className="flex gap-2 px-1">
+                  {techStackItems.slice(0, 8).map((tech, idx) => (
+                    <span key={`r1-m-${idx}`} className="flex-shrink-0 flex items-center gap-2 border border-white/15 rounded-full px-3 py-1.5 bg-white/[0.04] text-white/60 text-xs font-medium">
+                      <img src={tech.icon} alt={tech.name} className="w-4 h-4 object-contain brightness-[2] opacity-70" />
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2 px-1" aria-hidden="true">
+                  {techStackItems.slice(0, 8).map((tech, idx) => (
+                    <span key={`r1-d-${idx}`} className="flex-shrink-0 flex items-center gap-2 border border-white/15 rounded-full px-3 py-1.5 bg-white/[0.04] text-white/60 text-xs font-medium">
+                      <img src={tech.icon} alt={tech.name} className="w-4 h-4 object-contain brightness-[2] opacity-70" />
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Row 2 - Reverse */}
+            <div className="overflow-hidden w-full relative">
+              <div className="flex w-max animate-marquee-reverse">
+                <div className="flex gap-2 px-1">
+                  {techStackItems.slice(8).map((tech, idx) => (
+                    <span key={`r2-m-${idx}`} className="flex-shrink-0 flex items-center gap-2 border border-white/15 rounded-full px-3 py-1.5 bg-white/[0.04] text-white/60 text-xs font-medium">
+                      <img src={tech.icon} alt={tech.name} className="w-4 h-4 object-contain brightness-[2] opacity-70" />
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2 px-1" aria-hidden="true">
+                  {techStackItems.slice(8).map((tech, idx) => (
+                    <span key={`r2-d-${idx}`} className="flex-shrink-0 flex items-center gap-2 border border-white/15 rounded-full px-3 py-1.5 bg-white/[0.04] text-white/60 text-xs font-medium">
+                      <img src={tech.icon} alt={tech.name} className="w-4 h-4 object-contain brightness-[2] opacity-70" />
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ─────────────────────────── WORK EXPERIENCE ─────────────────────────── */}
+          <div
+            className={`mb-20 transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            <h2 className="text-3xl font-bold text-white mb-10">Work Experience</h2>
+
+            {workExperience.map((work, idx) => (
+              <div key={idx} className="mb-16">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1 mb-2">
+                  <h3 className="text-2xl font-bold text-white tracking-tight uppercase">{work.company}</h3>
+                  <span className="text-white/40 text-base font-medium">{work.period}</span>
+                </div>
+                <p className="text-[#0cc0df] text-lg font-medium mb-6">{work.role}</p>
+
+                <ul className="list-disc list-outside ml-5 space-y-3 text-white/70 text-base mb-8 max-w-2xl">
+                  {work.bullets.map((bullet, i) => (
+                    <li key={i} className="pl-2 leading-relaxed">{bullet}</li>
+                  ))}
+                </ul>
+
+                {work.image && (
+                  <div className="relative group max-w-sm">
+                    <div className="absolute -inset-1 bg-linear-to-r from-[#0cc0df]/20 to-purple-600/20 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                    <img
+                      src={work.image}
+                      alt={work.company}
+                      className="relative rounded-xl border border-white/10 w-full shadow-2xl"
+                    />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* ─────────────────────────── STUDIES ─────────────────────────── */}
+          <div
+            className={`mb-20 transition-all duration-700 delay-400 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            <h2 className="text-3xl font-bold text-white mb-10">Studies</h2>
+
+            {studies.map((study, idx) => (
+              <div key={idx} className="mb-10 border-l-2 border-white/10 pl-6 hover:border-[#0cc0df]/50 transition-colors">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-1 mb-1">
+                  <h3 className="text-xl font-bold text-white">{study.institution}</h3>
+                  <span className="text-white/40 text-sm">{study.period}</span>
+                </div>
+                <p className="text-[#0cc0df] font-medium mb-3">{study.major}</p>
+                <p className="text-white/50 text-sm leading-relaxed max-w-xl">
+                  {study.description}
                 </p>
               </div>
+            ))}
+          </div>
 
-              <div className="flex gap-4 mb-6 flex-wrap">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.name}
-                    className="text-white hover:text-neutral-200 transition-colors duration-300 text-xl no-underline"
-                  >
-                    <i className={`bi ${social.icon}`} />
-                  </a>
-                ))}
-              </div>
-
-              {/* Quick CTA Buttons */}
-              <div className="flex flex-wrap gap-3">
-                <Link
-                  href="/project"
-                  className="bg-white text-black font-semibold px-6 py-2.5 rounded-xl hover:bg-white/90 transition-colors no-underline text-sm"
-                >
-                  View Projects
-                </Link>
-                <a
-                  href={personalInfo.cvPath}
-                  download
-                  className="border border-white/30 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-white/10 transition-colors no-underline text-sm"
-                >
-                  Download CV
-                </a>
-              </div>
-            </div>
-
-            {/* Photo slot — keep empty to preserve original spacing */}
-            <div
-              className={`flex-shrink-0 flex justify-center transition-all duration-1000 delay-300 ${
-                visible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+          {/* ─────────────────────────── PROJECTS PREVIEW ─────────────────────────── */}
+          <div
+            className={`mb-20 transition-all duration-700 delay-400 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
-            />
-          </div>
-        </div>
-      </section>
+          >
+            <h2 className="text-3xl font-bold text-white mb-10">Project</h2>
 
-      {/* ─────────────────────────── ABOUT ─────────────────────────── */}
-      <section className="bg-neutral-900/50 backdrop-blur-sm text-white py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <SectionHeader title="ABOUT" />
-
-          {/* Bio Row */}
-          <div className="flex flex-col md:flex-row gap-10 mt-12 items-start">
-            <div className="flex-shrink-0">
-              <img
-                src="/assets/img/my photo/foto_2.jpg"
-                alt="Foto Fabian"
-                className="w-52 rounded-xl shadow-lg"
-              />
-            </div>
-
-            <div className="flex-1">
-              <h2 className="text-2xl font-bold mb-3">
-                Web <span className="text-[#0cc0df]">Developer</span>.
-              </h2>
-              <p className="text-white/70 italic mb-6">{personalInfo.description}</p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                {[
-                  { label: "Nama", value: personalInfo.name },
-                  { label: "Lahir", value: personalInfo.birthdate },
-                  { label: "Web Portfolio", value: personalInfo.website },
-                  { label: "Umur", value: personalInfo.age },
-                  { label: "Telepon", value: personalInfo.phone },
-                  { label: "Status", value: personalInfo.status },
-                  { label: "Kota", value: personalInfo.location },
-                  { label: "Email", value: personalInfo.email },
-                ].map(({ label, value }) => (
-                  <div key={label} className="flex items-start gap-2">
-                    <i className="bi bi-chevron-right text-[#0cc0df] mt-0.5 flex-shrink-0" />
-                    <span>
-                      <strong>{label}:</strong>{" "}
-                      <span className="text-white/70">{value}</span>
-                    </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+              {previewProjects.map((item) => (
+                <Link key={item.id} href={`/project/${item.id}`} className="group border border-white/20 rounded-xl overflow-hidden bg-black/80 hover:-translate-y-1.5 hover:shadow-xl hover:border-white/30 transition-all duration-300 no-underline block">
+                  <div className="overflow-hidden">
+                    <img src={item.image} alt={item.title} className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <hr className="border-white/20 my-14" />
-
-          {/* Tech Logo Marquee */}
-          <div className="overflow-hidden relative py-4">
-            <div className="flex gap-12 animate-marquee whitespace-nowrap">
-              {[...techLogos, ...techLogos].map((logo, idx) => (
-                <img
-                  key={`${logo.name}-${idx}`}
-                  src={logo.icon}
-                  alt={logo.name}
-                  className="h-10 w-auto grayscale brightness-150 opacity-70 hover:grayscale-0 hover:opacity-100 hover:scale-110 transition-all duration-300 flex-shrink-0"
-                />
+                  <div className="p-4">
+                    <h5 className="text-white font-semibold text-sm mb-1 line-clamp-1">{item.title}</h5>
+                    <p className="text-white/40 text-xs mb-3 line-clamp-2">{item.description}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="inline-block bg-white/10 text-white/60 text-xs px-2 py-0.5 rounded-full">{item.category}</span>
+                      <i className="bi bi-arrow-up-right text-white/40 group-hover:text-[#0cc0df] transition-colors text-sm" />
+                    </div>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
 
-          {/* Divider */}
-          <hr className="border-white/20 my-14" />
-
-          {/* Education */}
-          <div className="flex flex-col md:flex-row gap-10">
-            <div className="flex-1">
-              <h3 className="text-white text-xl font-semibold mb-1">
-                Riwayat Pendidikan
-              </h3>
-              <hr className="border-white/50 border-2 w-16 rounded mb-1" />
-              <hr className="border-white/50 border-2 w-28 rounded mb-8" />
-
-              <div className="relative pl-2">
-                <div className="absolute left-2.5 top-2 h-[calc(100%-24px)] w-0.5 bg-white/30" />
-                {education.map((edu, i) => (
-                  <div key={i} className="relative mb-8 pl-8">
-                    <div className="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-[#0cc0df] z-10" />
-                    <p className="text-white/50 text-sm">{edu.period}</p>
-                    <h5 className="text-white font-bold">{edu.school}</h5>
-                    {edu.competency && (
-                      <p className="text-white/50 text-sm">
-                        Kompetensi Keahlian: {edu.competency}
-                      </p>
-                    )}
-                    <p className="text-white/50 text-sm">
-                      <i className="bi bi-geo-alt mr-1" />
-                      {edu.location}
-                    </p>
+          {/* ─────────────────────────── CERTIFICATIONS PREVIEW ─────────────────────────── */}
+          <div
+            className={`transition-all duration-700 delay-400 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+          >
+            <h2 className="text-3xl font-bold text-white mb-10">Certifications</h2>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+              {previewCerts.map((cert) => (
+                <div key={cert.id} className="group border border-white/20 rounded-xl overflow-hidden bg-black/80 hover:-translate-y-1.5 hover:shadow-xl hover:border-[#0cc0df]/50 transition-all duration-300">
+                  <div className="overflow-hidden bg-white/5 flex items-center justify-center p-4 h-44">
+                    <img src={cert.image} alt={cert.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                ))}
-              </div>
+                  <div className="p-5 border-t border-white/10">
+                    <h5 className="text-white font-bold text-base mb-1">{cert.title}</h5>
+                    <p className="text-[#0cc0df] font-medium text-sm mb-2">{cert.issuer}</p>
+                    <div className="flex items-center text-white/40 text-xs">
+                      <i className="bi bi-calendar-check mr-2" />
+                      <span>{cert.date}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────── PROJECTS PREVIEW ─────────────────────────── */}
-      <section className="bg-neutral-900/50 backdrop-blur-sm text-white py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <SectionHeader title="PROJECT" />
-
-          <div className="mt-10 mb-4">
-            <p className="text-[#0cc0df] font-medium text-lg">Portfolio</p>
-            <h3 className="text-3xl font-bold text-white/80 leading-snug">
-              Beberapa Project<br />yang Telah Saya Kerjakan
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-            {previewProjects.map((item) => (
-              <Link
-                key={item.id}
-                href={`/project/${item.id}`}
-                className="group border border-white/20 rounded-xl overflow-hidden bg-black/80 hover:-translate-y-1.5 hover:shadow-xl hover:border-white/30 transition-all duration-300 no-underline block"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-4">
-                  <h5 className="text-white font-semibold text-sm mb-1 line-clamp-1">
-                    {item.title}
-                  </h5>
-                  <p className="text-white/40 text-xs mb-3 line-clamp-2">
-                    {item.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="inline-block bg-white/10 text-white/60 text-xs px-2 py-0.5 rounded-full">
-                      {item.category}
-                    </span>
-                    <i className="bi bi-arrow-up-right text-white/40 group-hover:text-[#0cc0df] transition-colors text-sm" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─────────────────────────── CERTIFICATIONS PREVIEW ─────────────────────────── */}
-      <section className="bg-neutral-900/50 backdrop-blur-sm text-white py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <SectionHeader title="CERTIFICATIONS" />
-
-          <div className="mt-10 mb-4 text-center">
-            <p className="text-[#0cc0df] font-medium text-lg">Penghargaan & Sertifikat</p>
-            <h3 className="text-3xl font-bold text-white/80 leading-snug mt-2">
-              Bukti Pencapaian dan<br />Keahlian Profesional Saya
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
-            {previewCerts.map((cert) => (
-              <div
-                key={cert.id}
-                className="group border border-white/20 rounded-xl overflow-hidden bg-black/80 hover:-translate-y-1.5 hover:shadow-xl hover:border-[#0cc0df]/50 transition-all duration-300"
-              >
-                <div className="overflow-hidden bg-white/5 flex items-center justify-center p-4 h-44">
-                  <img
-                    src={cert.image}
-                    alt={cert.title}
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5 border-t border-white/10">
-                  <h5 className="text-white font-bold text-base mb-1">{cert.title}</h5>
-                  <p className="text-[#0cc0df] font-medium text-sm mb-2">{cert.issuer}</p>
-                  <div className="flex items-center text-white/40 text-xs">
-                    <i className="bi bi-calendar-check mr-2" />
-                    <span>{cert.date}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>

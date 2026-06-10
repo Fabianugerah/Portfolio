@@ -5,9 +5,9 @@ import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/ui/CustomCursor";
 
 export const metadata: Metadata = {
-  title: "GreXXDev",
-  description: "Portfolio Fabianugerah Bainasshiddiq - Junior Web Developer",
-  keywords: ["GreXXDev", "Portfolio", "Web Development", "Fabianugerah"],
+  title: "Fabianugerah",
+  description: "Portfolio Fabianugerah Bainasshiddiq - Full Stack Developer",
+  keywords: ["Fabianugerah", "Portfolio", "Web Development", "Fabianugerah Bainasshiddiq", "Full Stack Developer", "Frontend Developer", "Backend Developer"],
   icons: {
     icon: "/assets/img/logo/logo_white.png",
   },

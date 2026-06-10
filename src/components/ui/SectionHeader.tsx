@@ -4,9 +4,12 @@ interface SectionHeaderProps {
 
 export default function SectionHeader({ title }: SectionHeaderProps) {
   return (
-    <div className="text-center mb-2">
-      <h2 className="text-3xl font-bold text-white">{title}</h2>
-      <hr className="w-16 border-2 border-white rounded-full mx-auto mt-3" />
+    <div className="mb-2">
+      <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3">{title}</h2>
+      <p className="text-white/50 text-sm leading-relaxed max-w-sm">
+        Feel free to reach out through any of these channels. I&apos;m
+        always open to discussing new projects.
+      </p>
     </div>
   );
 }

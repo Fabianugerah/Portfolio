@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: "Fabianugerah Bainasshiddiq",
-  brandName: "GreXXDev",
-  tagline: "Junior Web Developer",
+  brandName: "Fabianugerah",
+  tagline: "Fullstack Developer",
   description:
     "Hiii, Saya adalah junior Web Developer yang berdomisili di Pandaan dan sekarang sedang bersekolah di SMKN 1 Purwosari jurusan Rekayasa Perangkat Lunak.",
   email: "fabianugerah@gmail.com",
@@ -42,23 +42,36 @@ export const socialLinks = [
   },
 ];
 
-export const education = [
+export const workExperience = [
   {
-    period: "2014 - 2020",
-    school: "SDN Kutorejo 2",
-    location: "Pandaan, Kabupaten Pasuruan",
+    company: "FLY",
+    role: "Senior Design Engineer",
+    period: "2022 - Present",
+    bullets: [
+      "Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user engagement.",
+      "Spearheaded the integration of AI tools into design workflows, enabling designers to iterate 50% faster."
+    ],
+    image: "/assets/page.png"
   },
   {
-    period: "2020 - 2023",
-    school: "SMP Negeri 1 Pandaan",
-    location: "Pandaan, Kabupaten Pasuruan",
+    company: "FLY",
+    role: "Senior Design Engineer",
+    period: "2022 - Present",
+    bullets: [
+      "Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user engagement.",
+      "Spearheaded the integration of AI tools into design workflows, enabling designers to iterate 50% faster."
+    ],
+    image: "/assets/page_2.png"
   },
+];
+
+export const studies = [
   {
-    period: "2023 - Sekarang",
-    school: "SMK Negeri 1 Purwosari",
-    location: "Purwosari, Kabupaten Pasuruan",
-    competency: "Rekayasa Perangkat Lunak",
-  },
+    institution: "Universitas Indonesia",
+    major: "Computer Science",
+    period: "2018 - 2022",
+    description: "Focused on Software Engineering and Artificial Intelligence. Graduated with GPA 3.9/4.0."
+  }
 ];
 
 export const services = [

@@ -13,20 +13,20 @@ export default function PortfolioSection() {
   );
 
   return (
-    <section className="bg-black text-white py-20 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="bg-neutral-900/50 backdrop-blur-sm text-white py-20 min-h-screen">
+      <div className="max-w-3xl mx-auto">
         <SectionHeader title="PROJECT" />
 
         {/* Filter Buttons */}
-        <div className="flex justify-center flex-wrap gap-2 mt-10 mb-10">
+        <div className="flex flex-wrap gap-2 my-8">
           {filterCategories.map((cat) => (
             <button
               key={cat.value}
               onClick={() => setActiveFilter(cat.value as ProjectCategory)}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
                 activeFilter === cat.value
-                  ? "bg-black/40 backdrop-blur-md border-white/20 text-white"
-                  : "border-transparent text-white/50 hover:text-white hover:border-white/20"
+                  ? "bg-[#1a1a1a] border border-white/10 text-white"
+                  : "text-white/60 hover:text-white border border-transparent hover:bg-white/5"
               }`}
             >
               {cat.label}
@@ -35,7 +35,7 @@ export default function PortfolioSection() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filtered.map((item) => (
             <Link
               key={item.id}
