@@ -1,50 +1,71 @@
-import { services, skills } from "@/data/portfolio";
+"use client";
+
+import { useState } from "react";
+import { services } from "@/data/portfolio";
 import SectionHeader from "@/components/ui/SectionHeader";
 
-const iconColorMap: Record<string, string> = {
-  "icon-uiux": "bg-[#6a44bf]",
-  "icon-frontend": "bg-[#00bcd4]",
-  "icon-backend": "bg-[#ffb100]",
-  "icon-web-design": "bg-[#fd5c63]",
-  "icon-mobile": "bg-[#02e260]",
-};
-
 export default function ServiceSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggle = (idx: number) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
+  };
+
   return (
     <section className="bg-neutral-900/50 backdrop-blur-sm text-white py-20 min-h-screen">
       <div className="max-w-3xl mx-auto">
         <SectionHeader title="SERVICE" />
-        {/* First row - 3 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
-          {services.slice(0, 3).map((service, i) => (
-            <ServiceCard key={i} service={service} />
-          ))}
-        </div>
 
-        {/* Second row - 2 cards centered */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 md:max-w-2xl mx-auto">
-          {services.slice(3).map((service, i) => (
-            <ServiceCard key={i} service={service} />
-          ))}
+        <div className="mt-10 flex flex-col">
+          {services.map((service, idx) => {
+            const isOpen = openIndex === idx;
+            const num = String(idx + 1).padStart(2, "0");
+
+            return (
+              <div key={idx} className="border-t border-white/10 last:border-b">
+                {/* Row Header — clickable */}
+                <button
+                  onClick={() => toggle(idx)}
+                  className="w-full flex items-center gap-6 py-6 text-left bg-transparent border-none cursor-pointer group"
+                  aria-expanded={isOpen}
+                >
+                  {/* Number */}
+                  <span className="text-white/30 text-sm font-mono w-6 shrink-0 select-none">
+                    {num}.
+                  </span>
+
+                  {/* Title */}
+                  <span
+                    className={`flex-1 text-xl font-semibold transition-colors duration-200 ${
+                      isOpen ? "text-white" : "text-white/80 group-hover:text-white"
+                    }`}
+                  >
+                    {service.title}
+                  </span>
+
+                  {/* Chevron */}
+                  <i
+                    className={`bi bi-chevron-down text-white/40 text-base shrink-0 transition-transform duration-300 ${
+                      isOpen ? "rotate-180 text-white/70" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Description — accordion body */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <p className="text-white/50 text-sm leading-relaxed pb-6 pl-12 pr-16 max-w-xl">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
-  );
-}
-
-function ServiceCard({ service }: { service: typeof services[0] }) {
-  const colorClass = iconColorMap[service.colorClass] ?? "bg-gray-500";
-  return (
-    <div className="border border-white/20 rounded-xl p-7 flex flex-col hover:-translate-y-2 transition-transform duration-300 h-full">
-      <div
-        className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 text-2xl ${colorClass}`}
-      >
-        <i className={`bi ${service.icon} text-white`} />
-      </div>
-      <h5 className="text-white font-semibold text-center mb-3">{service.title}</h5>
-      <p className="text-white/50 text-sm leading-relaxed text-center flex-1">
-        {service.description}
-      </p>
-    </div>
   );
 }

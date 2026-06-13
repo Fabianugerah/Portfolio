@@ -1,0 +1,8 @@
+<svg width="78" height="78" viewBox="0 0 78 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="78" height="78" rx="10" fill="#EFEFEF"/>
+<path d="M42 18C42 16.3431 43.3431 15 45 15H55C56.6569 15 58 16.3431 58 18V41C58 42.6569 56.6569 44 55 44H45C43.3431 44 42 42.6569 42 41V18Z" fill="black"/>
+<path d="M20 45C20 43.3431 21.3431 42 23 42H40C41.6569 42 43 43.3431 43 45V59C43 60.6569 41.6569 62 40 62H23C21.3431 62 20 60.6569 20 59V45Z" fill="black"/>
+<rect x="5" y="53.9401" width="5" height="33" transform="rotate(-52 5 53.9401)" fill="#EFEFEF"/>
+<rect x="43" y="6.94006" width="5" height="33" transform="rotate(-52 43 6.94006)" fill="#EFEFEF"/>
+<rect x="27" y="27" width="11" height="11" rx="3" fill="black"/>
+</svg>

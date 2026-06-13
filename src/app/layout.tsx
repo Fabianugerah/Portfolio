@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Portfolio Fabianugerah Bainasshiddiq - Full Stack Developer",
   keywords: ["Fabianugerah", "Portfolio", "Web Development", "Fabianugerah Bainasshiddiq", "Full Stack Developer", "Frontend Developer", "Backend Developer"],
   icons: {
-    icon: "/assets/img/logo/logo_white.png",
+    icon: "assets/svg/logo_black.svg",
   },
 };
 

@@ -11,7 +11,6 @@ export const personalInfo = {
   birthdate: "05 Mei 2007",
   age: "18 Tahun",
   status: "Pelajar",
-  cvPath: "/assets/cv/My CV.pdf",
 };
 
 export const socialLinks = [
@@ -215,21 +214,24 @@ export const certifications = [
     title: "Sertifikat Web Developer Junior",
     issuer: "Dicoding Indonesia",
     date: "Oktober 2023",
-    image: "/assets/img/project/yuk_travel.png",
+    link: "https://www.dicoding.com/certificates/MEPZV9QX9ZL2",
+    image: "/assets/page_2.png",
   },
   {
     id: 2,
     title: "Dasar Pemrograman Web",
     issuer: "Dicoding Indonesia",
     date: "Agustus 2023",
-    image: "/assets/img/project/spacond.png",
+    link: "https://www.dicoding.com/certificates/MEPZV9QX9ZL2",
+    image: "/assets/page_2.png",
   },
   {
     id: 3,
     title: "Belajar Dasar UX Design",
     issuer: "Google",
     date: "Januari 2024",
-    image: "/assets/img/project/perpustakaan.png",
+    link: "https://www.coursera.org/account/accomplishments/certificate/3Z5K9Z6V8X7P",
+    image: "/assets/page.png",
   }
 ];
 
